@@ -58,6 +58,7 @@ namespace MiMiMiMeter
             this.ClientSize = new System.Drawing.Size(403, 450);
             this.Controls.Add(this.catList);
             this.Controls.Add(this.topLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "StatisticsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
