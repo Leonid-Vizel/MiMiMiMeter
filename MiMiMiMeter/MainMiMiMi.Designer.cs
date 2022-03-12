@@ -35,13 +35,13 @@ namespace MiMiMiMeter
             this.catName2 = new System.Windows.Forms.Label();
             this.loadingGifBox = new System.Windows.Forms.PictureBox();
             this.topLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.topPanel = new System.Windows.Forms.Panel();
             this.lowerPanel = new System.Windows.Forms.Panel();
             this.mainPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.catPicture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catPicture2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingGifBox)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.topPanel.SuspendLayout();
             this.lowerPanel.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +91,7 @@ namespace MiMiMiMeter
             // 
             // loadingGifBox
             // 
+            this.loadingGifBox.Image = global::MiMiMiMeter.Properties.Resources.gifLoading;
             this.loadingGifBox.Location = new System.Drawing.Point(305, 20);
             this.loadingGifBox.Name = "loadingGifBox";
             this.loadingGifBox.Size = new System.Drawing.Size(50, 50);
@@ -110,14 +111,14 @@ namespace MiMiMiMeter
             this.topLabel.Text = "Кто Ми-ми-ми-шнее?)))";
             this.topLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // topPanel
             // 
-            this.panel1.Controls.Add(this.topLabel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(665, 57);
-            this.panel1.TabIndex = 7;
+            this.topPanel.Controls.Add(this.topLabel);
+            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.topPanel.Location = new System.Drawing.Point(0, 0);
+            this.topPanel.Name = "topPanel";
+            this.topPanel.Size = new System.Drawing.Size(665, 57);
+            this.topPanel.TabIndex = 7;
             // 
             // lowerPanel
             // 
@@ -147,7 +148,7 @@ namespace MiMiMiMeter
             this.ClientSize = new System.Drawing.Size(665, 480);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.lowerPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.topPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainMiMiMi";
@@ -157,7 +158,7 @@ namespace MiMiMiMeter
             ((System.ComponentModel.ISupportInitialize)(this.catPicture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.catPicture2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadingGifBox)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.topPanel.ResumeLayout(false);
             this.lowerPanel.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -172,7 +173,7 @@ namespace MiMiMiMeter
         private System.Windows.Forms.Label catName2;
         private System.Windows.Forms.PictureBox loadingGifBox;
         private System.Windows.Forms.Label topLabel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel topPanel;
         private System.Windows.Forms.Panel lowerPanel;
         private System.Windows.Forms.Panel mainPanel;
     }

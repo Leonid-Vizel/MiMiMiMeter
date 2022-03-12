@@ -31,7 +31,6 @@ namespace MiMiMiMeter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            loadingGifBox.Load("https://upload.wikimedia.org/wikipedia/commons/a/a3/Lightness_rotate_36f_cw.gif");
             LoadInfo(1, metricsCollection[0]);
             LoadInfo(2, metricsCollection[1]);
         }

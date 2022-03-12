@@ -36,6 +36,7 @@ namespace MiMiMiMeter
             // 
             // loadingGifBox
             // 
+            this.loadingGifBox.Image = global::MiMiMiMeter.Properties.Resources.gifLoading;
             this.loadingGifBox.Location = new System.Drawing.Point(12, 12);
             this.loadingGifBox.Name = "loadingGifBox";
             this.loadingGifBox.Size = new System.Drawing.Size(300, 300);
@@ -49,7 +50,7 @@ namespace MiMiMiMeter
             this.loadingInfoLabel.Name = "loadingInfoLabel";
             this.loadingInfoLabel.Size = new System.Drawing.Size(300, 32);
             this.loadingInfoLabel.TabIndex = 1;
-            this.loadingInfoLabel.Text = "label1";
+            this.loadingInfoLabel.Text = "Загрузка кошек :3";
             this.loadingInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoadingForm
@@ -65,7 +66,6 @@ namespace MiMiMiMeter
             this.Name = "LoadingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Загрузка...";
-            this.Load += new System.EventHandler(this.OnLoad);
             this.Shown += new System.EventHandler(this.OnShow);
             ((System.ComponentModel.ISupportInitialize)(this.loadingGifBox)).EndInit();
             this.ResumeLayout(false);
