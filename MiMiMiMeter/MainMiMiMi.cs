@@ -56,14 +56,14 @@ namespace MiMiMiMeter
             {
                 catPicture1.Load(convertAgrument.Item2.Link);
                 catPicture1.Tag = convertAgrument.Item2;
-                Action threadAction = () => { catName1.Text = convertAgrument.Item2.Name; };
+                Action threadAction = () => { catName1.Text = $"{convertAgrument.Item2.Name} ({convertAgrument.Item2.Upvotes}👍🏻)"; };
                 Invoke(threadAction);
             }
             else
             {
                 catPicture2.Load(convertAgrument.Item2.Link);
                 catPicture2.Tag = convertAgrument.Item2;
-                Action threadAction = () => { catName2.Text = convertAgrument.Item2.Name; };
+                Action threadAction = () => { catName2.Text = $"{convertAgrument.Item2.Name} ({convertAgrument.Item2.Upvotes}👍🏻)"; };
                 Invoke(threadAction);
             }
         }
@@ -71,6 +71,11 @@ namespace MiMiMiMeter
 
         private void ImageChosen(object sender, EventArgs e)
         {
+            if (imageLoader1.IsBusy || imageLoader2.IsBusy)
+            {
+                MessageBox.Show("Изображение загружается. Подождите...","Ошибка");
+                return;
+            }
             PictureBox boxSender = sender as PictureBox;
             CatMetrics metrics = boxSender.Tag as CatMetrics;
             metrics.Chosen = true;

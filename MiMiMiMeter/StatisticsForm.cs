@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace MiMiMiMeter
@@ -16,14 +17,22 @@ namespace MiMiMiMeter
 
         private void StatisticsForm_Load(object sender, EventArgs e)
         {
-            foreach (CatMetrics metrics in metricsCollection)
+            using (SQLiteConnection connection = new SQLiteConnection("DataSource='CatBase.db';Version=3;"))
             {
-                if (metrics.Chosen)
+                connection.Open();
+                foreach (CatMetrics metrics in metricsCollection)
                 {
-                    metrics.Upvotes++;
+                    if (metrics.Chosen)
+                    {
+                        metrics.Upvotes++;
+                        using (SQLiteCommand command = new SQLiteCommand($"UPDATE Cats SET Upvotes = {metrics.Upvotes} WHERE Id = {metrics.Id};", connection))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    catList.Items.Add(metrics);
                 }
             }
-            catList.Items.AddRange(metricsCollection.ToArray());
         }
     }
 }

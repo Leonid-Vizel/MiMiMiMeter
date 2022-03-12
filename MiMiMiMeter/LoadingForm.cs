@@ -23,7 +23,7 @@ namespace MiMiMiMeter
             using (SQLiteConnection connection = new SQLiteConnection("DataSource='CatBase.db';Version=3;"))
             {
                 connection.Open();
-                using (SQLiteCommand command = new SQLiteCommand("SELECT * FROM Cats;",connection))
+                using (SQLiteCommand command = new SQLiteCommand("SELECT * FROM Cats ORDER BY Upvotes DESC;", connection))
                 {
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -33,9 +33,9 @@ namespace MiMiMiMeter
                             {
                                 loadedMetrics.Add(new CatMetrics(
                                     reader.GetInt32(0),
-                                    reader.GetValue(1).ToString(),
+                                    reader.GetString(1),
                                     reader.GetInt32(2),
-                                    reader.GetValue(3).ToString()));
+                                    reader.GetString(3)));
                             }
                         }
                     }
