@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SQLite;
-using System.Threading;
+using System.Drawing;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace MiMiMiMeter
@@ -9,14 +12,14 @@ namespace MiMiMiMeter
     public partial class LoadingForm : Form
     {
         private List<CatMetrics> loadedMetrics;
-        private Thread loadTrd;
+        private BackgroundWorker worker;
         private bool loading;
         public LoadingForm()
         {
             InitializeComponent();
         }
 
-        private void LoadDataBase()
+        private void LoadDataBase(object sender, DoWorkEventArgs e)
         {
             loading = true;
             loadedMetrics = new List<CatMetrics>();
@@ -29,13 +32,26 @@ namespace MiMiMiMeter
                     {
                         if (reader.HasRows)
                         {
-                            while (reader.Read())
+                            using (WebClient client = new WebClient())
                             {
-                                loadedMetrics.Add(new CatMetrics(
-                                    reader.GetInt32(0),
-                                    reader.GetString(1),
-                                    reader.GetInt32(2),
-                                    reader.GetString(3)));
+                                while (reader.Read())
+                                {
+                                    using (Stream stream = client.OpenRead(reader.GetString(3)))
+                                    {
+                                        try
+                                        {
+                                            loadedMetrics.Add(new CatMetrics(
+                                                    reader.GetInt32(0),
+                                                    reader.GetString(1),
+                                                    reader.GetInt32(2),
+                                                    new Bitmap(stream)));
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -47,21 +63,24 @@ namespace MiMiMiMeter
         {
             if (loading)
             {
-                loadTrd.Abort();
+                worker.CancelAsync();
             }
             Close();
         }
 
         private void OnShow(object sender, EventArgs e)
         {
-            loadTrd = new Thread(new ThreadStart(LoadDataBase));
-            loadTrd.Start();
-            loadTrd.Join();
-            loading = false;
-            MainMiMiMi form = new MainMiMiMi(loadedMetrics);
-            form.FormClosed += ClosingBugPrevention;
-            form.Show();
-            Hide();
+            worker = new BackgroundWorker();
+            worker.DoWork += LoadDataBase;
+            worker.RunWorkerAsync();
+            worker.RunWorkerCompleted += (send, arg) =>
+            {
+                loading = false;
+                MainMiMiMi form = new MainMiMiMi(loadedMetrics);
+                form.FormClosed += ClosingBugPrevention;
+                form.Show();
+                Hide();
+            };
         }
     }
 }

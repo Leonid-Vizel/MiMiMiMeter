@@ -31,8 +31,10 @@ namespace MiMiMiMeter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadInfo(1, metricsCollection[0]);
-            LoadInfo(2, metricsCollection[1]);
+            for (int i = 0; i < 2; i++)
+            {
+                LoadInfo(i+1, metricsCollection[i]);
+            }
         }
 
         #region Another thread image loading  
@@ -49,19 +51,19 @@ namespace MiMiMiMeter
             }
         }
 
-        private void LoadImageAsync(Object sender, DoWorkEventArgs e)
+        private void LoadImageAsync(object sender, DoWorkEventArgs e)
         {
             Tuple<int, CatMetrics> convertAgrument = e.Argument as Tuple<int, CatMetrics>;
             if (convertAgrument.Item1 == 1)
             {
-                catPicture1.Load(convertAgrument.Item2.Link);
+                catPicture1.Image = convertAgrument.Item2.Image;
                 catPicture1.Tag = convertAgrument.Item2;
                 Action threadAction = () => { catName1.Text = $"{convertAgrument.Item2.Name} ({convertAgrument.Item2.Upvotes}👍🏻)"; };
                 Invoke(threadAction);
             }
             else
             {
-                catPicture2.Load(convertAgrument.Item2.Link);
+                catPicture2.Image = convertAgrument.Item2.Image;
                 catPicture2.Tag = convertAgrument.Item2;
                 Action threadAction = () => { catName2.Text = $"{convertAgrument.Item2.Name} ({convertAgrument.Item2.Upvotes}👍🏻)"; };
                 Invoke(threadAction);
